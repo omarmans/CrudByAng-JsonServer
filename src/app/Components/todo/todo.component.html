@@ -1,0 +1,53 @@
+<div class="bg-white shadow-md rounded-lg p-6 max-w-xl mx-auto">
+  <h3 class="text-center text-blue-600 text-2xl font-semibold mb-4">Todo List</h3>
+
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <input 
+        type="text" 
+        formControlName="title" 
+        placeholder="Add Task title" 
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      
+      <input 
+        type="text" 
+        formControlName="taskId" 
+        placeholder="Add Task ID" 
+        class="w-full px-4 py-2 border mt-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      
+      <div class="flex gap-3 items-center mt-2">
+        <input 
+          type="checkbox" 
+          id="check" 
+          formControlName="isCompleted" 
+          class="h-4 w-4 text-blue-600">
+        <label for="check">Is Completed..?</label>
+      </div>
+
+      <!-- الزر يتغير بناءً على حالة isEdit -->
+      <button 
+        type="submit" 
+        [disabled]="taskForm.invalid" 
+        class="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 block">
+        {{ isEdit ? 'Update' : 'Add' }}
+      </button>
+    </div>
+  </form>
+  
+  <ul class="mt-4 space-y-2">
+    <li *ngFor="let task of todo" class="flex items-center justify-between p-2 border-b border-gray-200">
+      <input type="checkbox" 
+        class="h-4 w-4 text-blue-600" 
+        [checked]="task.completed" 
+        (change)="task.completed = !task.completed">
+      
+      <span [class.line-through]="task.completed" class="text-gray-500">#{{ task.id }}</span>
+      
+      <span class="flex-grow ml-4 flex justify-between items-center">
+        {{ task.title }}
+        <button (click)="deleteTodo(task.id)" class="bg-red-500 p-3 w-fit text-white rounded-lg block">Delete Item</button>
+        <button class="bg-blue-500 p-3 w-fit text-white rounded-lg block" (click)="editToDo(task)">Edit Item</button>
+      </span>
+    </li>
+  </ul>
+</div>

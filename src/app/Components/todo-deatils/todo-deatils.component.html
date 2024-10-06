@@ -1,0 +1,8 @@
+<div *ngIf="todo">
+  <h2 class="text-2xl font-bold">{{ todo.title }}</h2>
+  <p>ID: {{ todo.id }}</p>
+  <p>Completed: {{ todo.completed ? 'Yes' : 'No' }}</p>
+</div>
+<div *ngIf="!todo">
+  <p>Loading...</p>
+</div>
